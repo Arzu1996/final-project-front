@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phonebook-frontend-deployment
+  namespace: phonebook-app
+  labels:
+    app: phonebook-frontend
+    env: demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: phonebook-frontend
+  template:
+    metadata:
+      labels:
+        app: phonebook-frontend
+        tier: frontend
+        track: stable
+    spec:
+      containers:
+        - name: phonebook-frontend
+          image: Arzu1996/phonebook-front:latest
+          env:
+            - name: BACKEND_API
+              value: http://${BACKENDSVC_SERVICE_HOST}:${BACKENDSVC_SERVICE_PORT}/user/api
+          volumeMounts:
+            - mountPath: /app/config
+              name: frontend-config
+      restartPolicy: Always
+      volumes:
+        - name: frontend-config
+          configMap:
+            name: frontend-config
+            items:
+              - key: backend-url
+                path: .env

@@ -1,0 +1,43 @@
+server:
+  port: 9090
+  error:
+    include-stacktrace: always
+spring:
+  application:
+    name: /frontend
+  main:
+    banner-mode: off
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 20000
+        readTimeout: 120000
+        loggerLevel: full
+        decode404: false
+  httpclient:
+    enabled: false
+    disable-ssl-validation: true
+  okhttp:
+    enabled: true
+endpoints:
+  backend: ${BACKEND:http://localhost:8080}
+
+management:
+  server:
+    port: ${MANAGEMENT_SERVER_PORT:9091}
+  endpoints:
+    web:
+      exposure:
+        include: info, health
+    enabled-by-default: true
+  endpoint:
+    health:
+      show-details: always
+      enabled: true
+    metrics:
+      enabled: false
+    info:
+      enabled: true
+

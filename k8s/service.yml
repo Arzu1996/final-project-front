@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: frontendsvc
+  namespace: phonebook-app
+spec:
+  selector:
+    app: phonebook-frontend
+    tier: frontend
+  ports:
+    - protocol: TCP
+      port: 8090
+      targetPort: 8090
+  type: LoadBalancer
