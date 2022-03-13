@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: phonebook-frontend
-          image: Arzu1996/phonebook-front:latest
+          image: Arzu1996/frontend
           env:
             - name: BACKEND_API
               value: http://${BACKENDSVC_SERVICE_HOST}:${BACKENDSVC_SERVICE_PORT}/user/api
